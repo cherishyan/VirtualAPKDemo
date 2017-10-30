@@ -1,0 +1,41 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.didi.virtualapk.plugin'
+
+android {
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
+
+    compileSdkVersion 26
+    buildToolsVersion "26.0.0"
+    defaultConfig {
+        applicationId "com.jinqiang.dalimap"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    signingConfigs {
+        debug {
+           
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
+    //    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile files('src/main/libs/Android_Map3D_SDK_V5.4.0_20170928.jar')
+}
+
+virtualApk {
+    packageId = 0x6f             // 插件资源id，避免资源id冲突
+    targetHost='/Users/xx/xx/app'      // 宿主工程的路径
+    applyHostMapping = true      // 插件编译时是否启用应用宿主的apply mapping
+}
